@@ -1,14 +1,14 @@
-const express = require('express')
+'use strict';
+
 const mariadb = require('mariadb')
 
 class DatabaseConnector {
-
-    static createPool() {
+    static createPool(argport) {
         const connection = {
-            host: '127.0.0.1',
-            port: 3307,
+            host: 'localhost',
+            port: argport,
             user: 'root',
-            password: '8h%6Z4#7',
+            password: '',
             database: 'account_manager',
             connectionLimit: 5
         }
@@ -26,8 +26,7 @@ class DatabaseConnector {
         } finally {
             if (conn) {
                 console.log('Connection successful');
-                conn.query('INSERT INTO accounts(username, h_pass, email) VALUES("test", 12515, "sifja")');
-
+                //conn.query('INSERT INTO accounts(username, h_pass, email) VALUES("test", 12515, "sifja")');
                 return conn.end();
             }
         }
