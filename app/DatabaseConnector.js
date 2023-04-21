@@ -9,7 +9,7 @@ class DatabaseConnector {
             host: 'localhost',
             port: p,
             user: 'root',
-            password: '8h%6Z4#7',
+            password: '',
             database: 'account_manager',
             connectionLimit: 5
         }
