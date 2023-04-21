@@ -1,14 +1,15 @@
 'use strict';
 
 const mariadb = require('mariadb')
+const index = document.getElementById('index');
 
 class DatabaseConnector {
-    static createPool(argport) {
+    static createPool(p) {
         const connection = {
             host: 'localhost',
-            port: argport,
+            port: p,
             user: 'root',
-            password: '',
+            password: '8h%6Z4#7',
             database: 'account_manager',
             connectionLimit: 5
         }
@@ -22,12 +23,13 @@ class DatabaseConnector {
         try {
             conn = await pool.getConnection()
         } catch (err) {
-            console.log('Connection error; check pool settings & internet connectivity');
+            console.log('Connection error; check pool settings or database connectivity');
         } finally {
             if (conn) {
                 console.log('Connection successful');
-                //conn.query('INSERT INTO accounts(username, h_pass, email) VALUES("test", 12515, "sifja")');
-                return conn.end();
+                while (true) {
+
+                }
             }
         }
         

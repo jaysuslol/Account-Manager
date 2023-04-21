@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const DatabaseConnector = require('./DatabaseConnector');
 const Server = require('./server');

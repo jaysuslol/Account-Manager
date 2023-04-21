@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <head rel="stylesheet" href="./style/index.css">
+    <head>
         <title>Login / Signup App</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="./style/index.css">
     </head>
 
     <body id="index">
-        <h1>Test</h1>
-        
-        <script type="module" src="../app/app.js"></script>
+        <div class="center-div">
+            <form>
+                <label for="username">Username:</label> <br>
+                <input type="text" id="username" name="username"> <br>
+                <label for="pwd">Password:</label> <br>
+                <input type="password" id="pwd" name="pwd"> <br> <br>
+                <input type="submit" value="Log in"> <br> <br>
+                <input type="button" id="signupinit" value="Sign up">
+            </form>
+        </div>
+        <script src="./index.js"></script>
     </body>
 </html>
