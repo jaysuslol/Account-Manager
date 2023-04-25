@@ -1,9 +1,9 @@
 'use strict';
 
-var express = require('express');
-var app = express();
+const express = require('express');
 
-const dir = '../www';
+const app = express();
+const dir = '../bin/';
 
 class Server {
     constructor (p) {
@@ -12,8 +12,9 @@ class Server {
 
     initServer(serverPort) {
         app.use(express.static(dir));
-        app.listen(serverPort, () => console.log("Listening on port %s", serverPort))
+        app.listen(serverPort, () => console.log("Listening on port %s", serverPort));
+        return 1;
     }
 }
 
-module.exports = Server;
+module.exports = Server

@@ -6,18 +6,19 @@
         <link rel="stylesheet" href="./style/signup.css">
     </head>
 
-    <body id="signup">
+    <body>
         <div class="center-div">
-            <form>
+            <form id="signupform">
                 <label for="username">Username:</label> <br>
                 <input type="text" id="username" name="username"> <br>
                 <label for="pwd">Password:</label> <br>
                 <input type="password" id="pwd" name="pwd"> <br>
                 <label for="confirmpwd">Confirm password:</label> <br>
                 <input type="password" id="confirmpwd" name="confirmpwd"> <br> <br>
-                <input type="submit" id="signupreg" value="Sign up"> <br> <br>
+                <button type="submit" id="signupButton">Sign up</button> <br> <br>
             </form>
-            
         </div>
+
+        <script type="module" src="signup.js"></script>
     </body>
 </html>
