@@ -2,14 +2,16 @@
 
 const express = require('express');
 const Server = require('./server');
+const mariadb = require('mariadb');
 
 // Configuring app server
 const app = express();
-const serverPort = process.env.PORT || 8000;
+const serverPort = parseInt(process.env.PORT || 8000);
 app.set('port', serverPort);
 
-
-// Run server & store variables in localStorage
+// Run server
 new Server(serverPort);
 
-module.exports.serverPort = serverPort;
+module.exports = {
+    serverPort
+};
