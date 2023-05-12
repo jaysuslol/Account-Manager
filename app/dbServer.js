@@ -6,9 +6,9 @@ const dbPort = parseInt(process.argv.forEach((index, value) => { return value; }
 
 const connection = mariadb.createPool({
     host: 'localhost',
-    port: 3307,
+    port: dbPort,
     user: 'root',
-    password: '8h%6Z4#7',
+    password: '',
     database: 'account_manager',
     connectionLimit: 5
 })
