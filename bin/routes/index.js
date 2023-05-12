@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
+
+const { error } = require('console');
 const dir = '../bin/routes'
 
 router.get('/', (req, res) => {
