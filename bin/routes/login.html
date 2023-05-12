@@ -8,7 +8,7 @@
 
     <body>
         <div class="center-div">
-            <form action="login" method="post">
+            <form action="api/auth/login" method="post">
                 <label for="username">Username:</label> <br>
                 <input type="text" id="username" name="username"> <br>
 
@@ -16,7 +16,8 @@
                 <input type="password" id="pwd" name="pwd"> <br> <br>
                 
                 <input type="submit" value="Log in"> <br> <br>
-                <button type="button" id="signupButton" > Sign up </button>
+
+                <button type="button" id="signupButton" onclick="window.open('/signup', '_self')"> Sign up </button>
             </form>
         </div>
 
