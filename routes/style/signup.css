@@ -1,0 +1,14 @@
+.center-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 260px;
+    height: 240px;
+    margin: 10vw auto;
+    border: 3px solid blue;
+    background: rgb(123, 118, 190)
+}
+
+body {
+    background-color: rgb(180, 176, 176);
+}

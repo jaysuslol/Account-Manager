@@ -1,8 +1,10 @@
-const { json } = require('body-parser');
+'use strict';
+
 const bcrypt = require('bcrypt');
-const dbConn = require('./dbServer.js');
+const dbConn = require('../utils/database/DatabaseConnection');
 
 const saltRounds = 10;
+
 
 // SIGNUP FUNCTION
 exports.signup = async (req, res, next) => {
@@ -24,15 +26,14 @@ exports.signup = async (req, res, next) => {
     const hashed_p = await hash_p(pwd, saltRounds);
 
     // Insert user info to database
-    dbConn.then(async conn => {
-        await conn.query(`INSERT INTO accounts(username, h_pass, email) VALUES("${username}", "${hashed_p}", "${email}")`);
-        console.log("Account created");
-    }).catch (err => {
-        throw err;
-    })
-    
-    return res.status(200).json({ message: "Sign up successful" });
+    const query = `INSERT INTO accounts(username, h_pass, email) VALUES("${username}", "${hashed_p}", "${email}")`;
+    const result = await dbConn.executeQuery(query);
+
+    if (result) {
+        return res.status(200).json({ message: "Account created successfully" });
+    }
 }
+
 
 // LOGIN FUNCTION
 exports.login = async (req, res, next) => {
@@ -43,12 +44,11 @@ exports.login = async (req, res, next) => {
       return res.status(400).json({ message: "Username or password are empty" })
     }
 
-    dbConn.then(async conn => {
-        await conn.query(`SELECT h_pass FROM accounts WHERE username = "${username}";`).then( rows => {
-            h_pass = rows[0].h_pass; // Grab password from database
-        }).catch(err => {
-            throw err;
-        });
+    const query = `SELECT h_pass FROM accounts WHERE username = "${username}"`;
+    const result = await dbConn.executeQuery(query);
+
+    if (result) {
+        h_pass = result[0].h_pass;
 
         const compPass = await bcrypt.compare(pwd, h_pass);
         if (compPass) {
@@ -56,7 +56,19 @@ exports.login = async (req, res, next) => {
         } else {
             return res.status(401).json({ message: "Password is invalid" });
         }
-    });
+    }
+}
+
+
+// RESET PASSWORD FUNCTION
+exports.forgot = async (req, res, next) => {
+    const { email } = req.body;
+
+    // 1. FIND EMAIL THROUGH DATABASE
+    // 2. SEND PASSWORD RESTORATION EMAIL (through template) TO USER
+    // 3. ???
+    // 4. SUCCESS
+
 }
 
 async function hash_p(pwd, rounds) {
