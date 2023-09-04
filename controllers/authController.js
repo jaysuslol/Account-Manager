@@ -11,15 +11,15 @@ exports.signup = async (req, res, next) => {
     const { username, pwd, confirmpwd, email } = req.body;
 
     if (pwd.length < 6) {
-        return res.status(400).json({ message: "Password cannot be shorter than 6 characters" })
+        return res.status(400).send("Password cannot be shorter than 6 characters")
     }
 
     if (pwd != confirmpwd) {
-        return res.status(400).json({ message: "Passwords do not match" })
+        return res.status(400).send("Passwords do not match")
     }
     
     if (username.length < 6) {
-        return res.status(400).json({ message: "Username cannot be shorter than 6 characters" })
+        return res.status(400).send("Username cannot be shorter than 6 characters")
     }
     
     // Hash password
@@ -30,7 +30,7 @@ exports.signup = async (req, res, next) => {
     const result = await dbConn.executeQuery(query);
 
     if (result) {
-        return res.status(200).json({ message: "Account created successfully" });
+        return res.status(200).send("Account created successfully");
     }
 }
 
@@ -38,25 +38,31 @@ exports.signup = async (req, res, next) => {
 // LOGIN FUNCTION
 exports.login = async (req, res, next) => {
     const { username, pwd } = req.body;
-    let h_pass;
+    let hashed_pass;
 
     if (!username || !pwd) {
-      return res.status(400).json({ message: "Username or password are empty" })
+      res.status(400).send("Username or password are empty");
     }
 
     const query = `SELECT h_pass FROM accounts WHERE username = "${username}"`;
     const result = await dbConn.executeQuery(query);
 
     if (result) {
-        h_pass = result[0].h_pass;
+        if (result[0] == null) {
+            res.status(401).send("User not found");
+        }
 
-        const compPass = await bcrypt.compare(pwd, h_pass);
+        hashed_pass = result[0].h_pass;
+
+        const compPass = await bcrypt.compare(pwd, hashed_pass);
         if (compPass) {
-            return res.status(200).json({ message: "Login successful" });
+            res.redirect("/redirect/200"); // 200 = OK
         } else {
-            return res.status(401).json({ message: "Password is invalid" });
+            res.status(401).send("Password is invalid");
         }
     }
+
+    return next();
 }
 
 
@@ -65,7 +71,7 @@ exports.forgot = async (req, res, next) => {
     const { email } = req.body;
 
     // 1. FIND EMAIL THROUGH DATABASE
-    // 2. SEND PASSWORD RESTORATION EMAIL (through template) TO USER
+    // 2. SEND PASSWORD RESTORATION EMAIL TO USER
     // 3. ???
     // 4. SUCCESS
 
