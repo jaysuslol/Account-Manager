@@ -1,5 +1,6 @@
 'use strict';
 
+//var mail = require('../utils/nodemailer');
 const bcrypt = require('bcrypt');
 const dbConn = require('../utils/database/DatabaseConnection');
 
@@ -70,11 +71,7 @@ exports.login = async (req, res, next) => {
 exports.forgot = async (req, res, next) => {
     const { email } = req.body;
 
-    // 1. FIND EMAIL THROUGH DATABASE
-    // 2. SEND PASSWORD RESTORATION EMAIL TO USER
-    // 3. ???
-    // 4. SUCCESS
-
+    //mail(email).send();
 }
 
 async function hash_p(pwd, rounds) {

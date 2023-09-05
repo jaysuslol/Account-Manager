@@ -5,13 +5,14 @@ const express = require('express');
 const logger = require('morgan');
 const path = require('path');
 
-const loginPath = require('./routes/login/login.js');
-const signupPath = require('./routes/signup/signup.js');
-const forgotPath = require('./routes/forgot/forgot.js');
-const auth = require('./routes/auth.js');
-const redirect = require('./middlewares/redirect.js');
+const loginPath = require('../routes/login/login.js');
+const signupPath = require('../routes/signup/signup.js');
+const forgotPath = require('../routes/forgot/forgot.js');
+const auth = require('../routes/auth.js');
 
 const app = express();
+
+require('dotenv').config({ path: '../.env' });
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -23,12 +24,11 @@ app.use('/auth', auth);
 app.use('/login', loginPath);
 app.use('/signup', signupPath);
 app.use('/forgot', forgotPath);
-app.use('/redirect', redirect);
 
 app.get('*', (req, res) => {
     res.status(404).send("404: Not Found");
 })
 
-require('./utils/database/DatabaseConnection.js');
+require('../utils/database/DatabaseConnection.js');
 
 module.exports = app;
